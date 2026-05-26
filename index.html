@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tshegofatso L. Senona — Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --teal: #2a9d8f;
+      --teal-light: #4db8a8;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --navy: #0d1b2a;
+      --navy-mid: #1b2d42;
+      --cream: #faf7f2;
+      --sand: #f0ebe0;
+      --text: #0d1b2a;
+      --muted: #6a7a8a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      right: -60px;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      background: var(--navy);
+      clip-path: polygon(0 0, 0 100%, 100% 100%);
+      z-index: 2;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--teal);
+      color: white;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      width: fit-content;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 58px);
+      color: white;
+      line-height: 1.05;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero-name em {
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
+    .hero-title {
+      font-size: 15px;
+      color: var(--teal-light);
+      letter-spacing: 1px;
+      margin-top: 20px;
+      font-weight: 300;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-bio {
+      font-size: 15px;
+      color: #a8bcc8;
+      line-height: 1.8;
+      margin-top: 28px;
+      max-width: 400px;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      margin-top: 40px;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    .btn {
+      padding: 13px 28px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-outline:hover { border-color: var(--teal-light); color: var(--teal-light); }
+
+    .hero-right {
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 40px 60px 80px;
+      position: relative;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .avatar-blob {
+      width: 320px;
+      height: 380px;
+      background: linear-gradient(135deg, var(--teal), var(--navy));
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 120px;
+      box-shadow: 0 30px 60px rgba(42,157,143,0.3);
+      animation: morph 8s ease-in-out infinite;
+    }
+
+    @keyframes morph {
+      0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+      33% { border-radius: 45% 55% 40% 60% / 60% 40% 55% 45%; }
+      66% { border-radius: 55% 45% 60% 40% / 40% 55% 50% 60%; }
+    }
+
+    .floating-pill {
+      position: absolute;
+      background: white;
+      border-radius: 20px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .pill-1 { top: 20px; right: -10px; animation-delay: 0s; }
+    .pill-2 { bottom: 60px; left: -30px; animation-delay: 1s; }
+    .pill-3 { top: 50%; right: -40px; animation-delay: 2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .pill-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 90px 8vw; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 50px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-section { background: var(--navy); }
+    .skills-section .section-label { color: var(--gold-light); }
+    .skills-section .section-title { color: white; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 28px 24px;
+      transition: all 0.3s ease;
+    }
+
+    .skill-card:hover {
+      background: rgba(42,157,143,0.15);
+      border-color: var(--teal);
+      transform: translateY(-4px);
+    }
+
+    .skill-icon { font-size: 28px; margin-bottom: 14px; }
+
+    .skill-name {
+      color: white;
+      font-weight: 500;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .skill-desc { color: #8a9aaa; font-size: 13px; line-height: 1.6; }
+
+    .skill-bar-wrap { margin-top: 14px; background: rgba(255,255,255,0.1); border-radius: 10px; height: 4px; }
+
+    .skill-bar {
+      height: 4px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(232,135,154,0.2); }
+
+    .project-header {
+      padding: 32px 28px 24px;
+      position: relative;
+    }
+
+    .project-header.coffee { background: linear-gradient(135deg, #2b1a2f, #4a2a5a); }
+    .project-header.brightv { background: linear-gradient(135deg, #1a2b4a, #2a4a6a); }
+    .project-header.sql { background: linear-gradient(135deg, #1a3a2b, #2a5a3a); }
+
+    .project-emoji { font-size: 40px; margin-bottom: 16px; display: block; }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .project-sub { font-size: 12px; color: rgba(255,255,255,0.6); letter-spacing: 1px; text-transform: uppercase; }
+
+    .project-body { padding: 24px 28px; }
+
+    .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag-chip {
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+      background: var(--sand);
+      color: var(--text);
+    }
+
+    /* ── CERTS ── */
+    .certs-section { background: var(--sand); }
+
+    .certs-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cert-card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      min-width: 260px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--teal);
+      transition: all 0.3s ease;
+    }
+
+    .cert-card:hover { transform: translateX(4px); }
+
+    .cert-icon { font-size: 32px; }
+
+    .cert-name { font-weight: 500; font-size: 15px; color: var(--navy); }
+
+    .cert-issuer { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background: var(--navy);
+      text-align: center;
+    }
+
+    .contact-section .section-title { color: white; margin-bottom: 16px; }
+
+    .contact-sub { color: #8a9aaa; font-size: 15px; margin-bottom: 40px; }
+
+    .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.25s ease;
+    }
+
+    .contact-link.gh { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.15); }
+    .contact-link.gh:hover { background: rgba(255,255,255,0.15); }
+    .contact-link.li { background: var(--teal); color: white; }
+    .contact-link.li:hover { background: var(--teal-light); transform: translateY(-2px); }
+
+    .footer-note {
+      margin-top: 60px;
+      font-size: 12px;
+      color: #3a5a6a;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 60px 32px; }
+      .hero-left::after { display: none; }
+      .hero-right { padding: 40px 32px; }
+      .avatar-blob { width: 240px; height: 280px; font-size: 80px; }
+      section { padding: 60px 6vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="tag">✨ Open to Opportunities</span>
+    <h1 class="hero-name">Tshegofatso <em>L. Senona.</em></h1>
+    <p class="hero-title">Data Analyst · Cloud Engineer · Storyteller</p>
+    <p class="hero-bio">
+      From cloud infrastructure to data insights — I turn raw numbers into stories that matter. Based in Gauteng, South Africa 🇿🇦
+    </p>
+    <div class="hero-cta">
+      <a href="https://github.com/tshegosenona" target="_blank" class="btn btn-primary">View My Work</a>
+      <a href="https://linkedin.com/in/tshegofatso-l-senona-946a69237" target="_blank" class="btn btn-outline">Let's Connect</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="avatar-wrap">
+      <div class="avatar-blob">👩🏾‍💻</div>
+      <div class="floating-pill pill-1"><span class="pill-dot"></span> SQL · Excel · Power BI</div>
+      <div class="floating-pill pill-2"><span class="pill-dot"></span> AWS Certified ☁️</div>
+      <div class="floating-pill pill-3"><span class="pill-dot"></span> 2 Projects & counting</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section">
+  <p class="section-label">What I work with</p>
+  <h2 class="section-title">My Toolkit</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">SQL</div>
+      <div class="skill-desc">Data cleaning, aggregations, window functions, CTEs & more</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Excel</div>
+      <div class="skill-desc">Pivot tables, dashboards, KPI cards & data storytelling</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📈</div>
+      <div class="skill-name">Power BI</div>
+      <div class="skill-desc">Interactive reports & executive-level visualisations</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:60%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-name">AWS Cloud</div>
+      <div class="skill-desc">3 certifications — Cloud Practitioner, SAA, AI Practitioner</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name">Python</div>
+      <div class="skill-desc">Learning & growing — next on the roadmap</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:30%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Google Looker Studio</div>
+      <div class="skill-desc">Interactive dashboards & data visualisation reports</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔧</div>
+      <div class="skill-name">Databricks</div>
+      <div class="skill-desc">Lakehouse architecture, SQL notebooks & data pipelines</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section>
+  <p class="section-label">Portfolio</p>
+  <h2 class="section-title">Projects I'm Proud Of</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-header coffee">
+        <span class="project-emoji">☕</span>
+        <div class="project-title">Bright Coffee Shop</div>
+        <div class="project-sub">Sales Analysis · End-to-End</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">Full end-to-end analysis from raw SQL to a CEO-level PowerPoint. Uncovered revenue trends, peak hours, and top products using window functions, CASE WHEN logic, and a purple/teal Excel dashboard.</p>
+        <div class="project-tags">
+          <span class="tag-chip">SQL</span>
+          <span class="tag-chip">Databricks</span>
+          <span class="tag-chip">Excel</span>
+          <span class="tag-chip">PowerPoint</span>
+          <span class="tag-chip">GitHub</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header brightv">
+        <span class="project-emoji">📺</span>
+        <div class="project-title">BrightTV</div>
+        <div class="project-sub">Media Analytics · Completed</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">Analysing viewership data for a media company — identifying content performance, audience patterns, and scheduling insights. Built in Looker Studio with full dashboard treatment.</p>
+        <div class="project-tags">
+          <span class="tag-chip">Looker Studio</span>
+          <span class="tag-chip">Pivot Tables</span>
+          <span class="tag-chip">Data Cleaning</span>
+          <span class="tag-chip">GitHub</span>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs-section">
+  <p class="section-label">Credentials</p>
+  <h2 class="section-title">Certifications</h2>
+  <div class="certs-row">
+    <div class="cert-card">
+      <div class="cert-icon">☁️</div>
+      <div>
+        <div class="cert-name">AWS Cloud Practitioner</div>
+        <div class="cert-issuer">Amazon Web Services</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🏗️</div>
+      <div>
+        <div class="cert-name">Solutions Architect Associate</div>
+        <div class="cert-issuer">Amazon Web Services</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🤖</div>
+      <div>
+        <div class="cert-name">AI Practitioner</div>
+        <div class="cert-issuer">Amazon Web Services</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <p class="section-label" style="color:var(--gold-light)">Get in touch</p>
+  <h2 class="section-title">Let's Work Together</h2>
+  <p class="contact-sub">Open to Data Analyst opportunities · Remote, Hybrid & On-Site · Gauteng, South Africa 🇿🇦</p>
+  <div class="contact-links">
+    <a href="https://github.com/tshegosenona" target="_blank" class="contact-link gh">🐙 GitHub</a>
+    <a href="https://linkedin.com/in/tshegofatso-l-senona-946a69237" target="_blank" class="contact-link li">💼 LinkedIn</a>
+  </div>
+  <p class="footer-note">Built with love · Tshegofatso L. Senona © 2026</p>
